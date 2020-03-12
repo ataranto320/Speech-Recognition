@@ -8,13 +8,28 @@ const words = document.querySelector(".words");
 words.appendChild(p);
 
 recognition.addEventListener("result", e => {
-    console.log(e.results);
-    const transcript = Array.from(e.results).map(result => result[0])
+    // console.log(e.results);
+    const transcript = Array.from(e.results)
+    .map(result => result[0])
+    .map(result => result.transcript)
+    .join("")
+
+    p.textContent = transcript;
+    if (e.results[0].isFinal) {
+        // overwrite 
+        p = document.createElement("p");
+        words.appendChild(p);
+    }
+    // if (transcript.includes("unicorn")) {
+    //     console.log("uni")
+    // }
 
     console.log(transcript);
 });
 
+recognition.addEventListener("end", recognition.start);
+
 recognition.start();
 
-//need npm install
+// need npm install
 // need it to run on localhost
