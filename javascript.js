@@ -7,9 +7,14 @@ let p = document.createElement("p");
 const words = document.querySelector(".words");
 words.appendChild(p);
 
-recognition.addEventListener("results", e => {
-    console.log(e);
+recognition.addEventListener("result", e => {
+    console.log(e.results);
+    const transcript = Array.from(e.results).map(result => result[0])
+
+    console.log(transcript);
 });
+
+recognition.start();
 
 //need npm install
 // need it to run on localhost
